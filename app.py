@@ -13,6 +13,141 @@ st.set_page_config(
     layout="wide"
 )
 
+def inject_custom_css():
+    st.markdown(
+        """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+
+        .stApp {
+            background: #F8FAFC;
+        }
+
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+            max-width: 1180px;
+        }
+
+        h1 {
+            color: #0F172A;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        h2, h3 {
+            color: #1E293B;
+            font-weight: 700;
+        }
+
+        section[data-testid="stSidebar"] {
+            background: #FFFFFF;
+            border-right: 1px solid #E2E8F0;
+        }
+
+        section[data-testid="stSidebar"] h1 {
+            font-size: 24px;
+            color: #2563EB;
+        }
+
+        .stButton > button {
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.6rem 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .stButton > button:hover {
+            background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+            color: white;
+            border: none;
+        }
+
+        div[data-baseweb="input"],
+        div[data-baseweb="select"],
+        textarea {
+            border-radius: 10px !important;
+        }
+
+        section[data-testid="stFileUploader"] {
+            background: #FFFFFF;
+            border: 1px dashed #CBD5E1;
+            border-radius: 14px;
+            padding: 1rem;
+        }
+
+        div[data-testid="stAlert"] {
+            border-radius: 12px;
+        }
+
+        div[data-testid="stDataFrame"] {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .hero-card {
+            background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            padding: 44px 46px;
+            border-radius: 26px;
+            color: white;
+            box-shadow: 0 24px 60px rgba(37, 99, 235, 0.25);
+            margin-bottom: 26px;
+        }
+
+        .hero-card h1 {
+            color: white;
+            font-size: 46px;
+            margin-bottom: 12px;
+        }
+
+        .hero-card p {
+            font-size: 17px;
+            opacity: 0.94;
+            line-height: 1.8;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+            min-height: 170px;
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            color: #0F172A;
+        }
+
+        .feature-card p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .mini-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+inject_custom_css()
+
 
 DEFAULT_PROVIDER_CONFIGS = {
     "智谱 BigModel": {
@@ -605,42 +740,75 @@ def batch_generate_ai_plans(result_df, api_url, api_key, model, max_items):
 
 
 def show_home():
-    st.title("AI 电商工具箱")
-    st.write("一个面向电商设计师、运营和跨境卖家的 AI 商品策划工具箱。")
+    st.markdown(
+        """
+        <div class="hero-card">
+            <div class="mini-badge">AI 电商工具箱 · 产品化原型版</div>
+            <h1>AI 电商商品诊断与批量策划工具箱</h1>
+            <p>
+                面向电商设计师、运营、跨境卖家和内容带货从业者，帮助你快速完成商品诊断、
+                卖点提炼、主图方向、短视频策划和 AI 生图提示词生成。
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    st.info("这个工具箱可以帮助你完成单品诊断、商品策划、主图方向、短视频卖点和 AI 生图提示词生成。")
-
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-        st.subheader("商品诊断工具")
-        st.write("适合单个商品深度分析。")
-        st.markdown("""
-- 判断商品机会
-- 分析目标用户
-- 提炼核心卖点
-- 给出主图方向
-- 给出短视频方向
-- 生成诊断报告
-""")
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>商品诊断</h3>
+                <p>适合单个商品深度分析，生成商品机会判断、目标用户画像、主图方向、短视频方向和风险提醒。</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     with col2:
-        st.subheader("商品策划生成工具")
-        st.write("适合多个商品批量生成。")
-        st.markdown("""
-- 上传 Excel 商品表
-- 批量生成商品标题
-- 批量生成主图文案
-- 批量生成 AI 生图提示词
-- 下载结构化 Excel
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>批量策划</h3>
+                <p>上传商品 Excel，批量生成商品标题、主图文案、详情页结构、短视频卖点和策划方向。</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    with col3:
+        st.markdown(
+            """
+            <div class="feature-card">
+                <h3>生图提示词</h3>
+                <p>自动生成主图、场景图、背景图和负面提示词，支持中文、English 和中英双语输出。</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    st.write("")
+    st.write("")
+
+    st.subheader("如何使用")
+
+    st.markdown("""
+1. 如果你只有一个商品，先用「商品诊断工具」做深度分析。
+2. 如果你有多个商品，使用「商品策划生成工具」批量处理。
+3. 使用前准备好自己的大模型 API Key。
+4. 批量生成时请不要切换工具、刷新页面或关闭网页。
 """)
 
-    st.subheader("使用建议")
+    st.subheader("适合人群")
+
     st.markdown("""
-1. 如果你只有一个商品，先用「商品诊断工具」。
-2. 如果你有多个商品，使用「商品策划生成工具」。
-3. API Key 只在本次会话中使用，不会写入代码。
-4. 批量生成时请不要切换工具、刷新页面或关闭网页。
+- 电商运营
+- 电商设计师
+- 跨境电商卖家
+- 小红书 / 抖音 / TikTok Shop 内容带货从业者
+- AI 电商工具学习者
 """)
 
 
